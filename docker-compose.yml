@@ -1,0 +1,39 @@
+version: '3.5'
+services:
+  rocketmq-base:
+    image: rocketmq-base-image:4.2.0
+    build: ./base
+
+  namesrv:
+    image: rocketmq-namesrv:4.2.0
+    privileged: true
+    build:
+      context: ./namesrv
+    ports:
+      - "9876:9876"
+    depends_on:
+      - rocketmq-base
+    volumes:
+        - ./store/namesrc/:/opt/logs
+        - ./store/nm-store/:/opt/store
+
+  broker-m:
+    image: rocketmq-broker:4.2.0
+    privileged: true
+    build:
+      context: ./broker
+    environment:
+      NAMESRV_ADDR: "namesrv:9876"
+      #PROPERTIES_FILE: "2m-2s-async/broker-a-s.properties"
+      brokerIP1: "10.106.108.232"
+      brokerId: "1"
+    ports:
+      - "10911:10911"
+      - "10909:10909"
+    depends_on:
+      - rocketmq-base
+    links:
+      - namesrv
+    volumes:
+        - ./store/broker/:/opt/logs
+        - ./store/b-store/:/opt/store
