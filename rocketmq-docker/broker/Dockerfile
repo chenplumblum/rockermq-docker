@@ -1,8 +1,8 @@
 # Start from a base image.
-FROM rocketmq-base-image:4.6.0
+FROM rocketmq-base-image:4.2.0
 
 # Rocketmq version
-ENV ROCKETMQ_VERSION 4.6.0
+ENV ROCKETMQ_VERSION 4.2.0
 
 # Rocketmq home
 ENV ROCKETMQ_HOME  /opt/rocketmq-${ROCKETMQ_VERSION}

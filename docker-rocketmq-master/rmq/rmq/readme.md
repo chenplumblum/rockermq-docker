@@ -1,0 +1,1 @@
+1. 需要修改brokerconf中的broker.conf文件
